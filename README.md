@@ -91,6 +91,6 @@ Give a ⭐️ if this project helped you!
 ## 📝 License
 
 Copyright © 2020 **[okanbuyuktepe](https://github.com/okanbuyuktepe)**.<br />
-This project is **[MIT](https://github.com/okanbuyuktepe/Alien-Invasion/blob/main/LICENSE)** licensed.
+This project is **[MIT](https://github.com/okanbuyuktepe/Alien-Invasion/blob/main/LICENSE.txt)** licensed.
 
 ---
