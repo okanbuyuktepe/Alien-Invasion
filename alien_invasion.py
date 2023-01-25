@@ -8,6 +8,7 @@ from game_stats import GameStats
 from time       import sleep
 from button     import Button
 from scoreboard import Scoreboard
+from sound      import Sound
 
 
 class AlienInvasion:
@@ -21,11 +22,11 @@ class AlienInvasion:
 
         # For fullscreen mode, comment the below line and uncomment
         # other three lines.
-        self.screen = pygame.display.set_mode((self.settings.screen_width,
-            self.settings.screen_height))
-        #self.screen = pygame.display.set_mode((0, 0), pygame.FULLSCREEN)
-        #self.settings.screen_width  = self.screen.get_rect().width
-        #self.settings.screen_height = self.screen.get_rect().height
+        #self.screen = pygame.display.set_mode((self.settings.screen_width,
+        #    self.settings.screen_height))
+        self.screen = pygame.display.set_mode((0, 0), pygame.FULLSCREEN)
+        self.settings.screen_width  = self.screen.get_rect().width
+        self.settings.screen_height = self.screen.get_rect().height
         pygame.display.set_caption("Alien Invasion")
 
         self.ship    = Ship(self)
@@ -37,6 +38,9 @@ class AlienInvasion:
         self.stats = GameStats(self)
         self.sb    = Scoreboard(self)
 
+        # Create a sound instance.
+        self.sound = Sound()
+
         # Make the play button.
         self.play_button = Button(self, "PLAY")
 
@@ -46,7 +50,11 @@ class AlienInvasion:
         self.bg_color = (230, 230, 230)
 
     def run_game(self):
-        """Start the mail loop for the game."""
+        """Start the main loop for the game."""
+
+        # Play the game background sound.
+        self.sound.play_background_music()
+            
         while True:
             self._check_events()
 
@@ -54,7 +62,7 @@ class AlienInvasion:
                 self.ship.update()
                 self._update_bullets()
                 self._update_aliens()
-            
+
             self._update_screen()
 
     def _check_events(self):
@@ -79,7 +87,7 @@ class AlienInvasion:
             self.ship.moving_left = True
         elif event.key == pygame.K_SPACE and self.stats.game_active:
             self._fire_bullet()
-        elif event.key == pygame.K_q:
+        elif event.key == pygame.K_q or event.key == pygame.K_ESCAPE:
             self.stats.save_high_score()
             sys.exit()
         elif event.key == pygame.K_p and not self.stats.game_active:
@@ -98,10 +106,16 @@ class AlienInvasion:
             new_bullet = Bullet(self)
             self.bullets.add(new_bullet)
 
+            # Play bullet sound.
+            self.sound.play_sound("fire_bullet")
+
     def _check_play_button(self, mouse_pos):
         """Start a new game when the player clicks PLAY."""
         button_clicked = self.play_button.rect.collidepoint(mouse_pos)
         if button_clicked and not self.stats.game_active:
+            # Play the sound.
+            self.sound.stop_sound()
+            self.sound.play_sound("play_button")
             self._start_game()
 
     def _start_game(self):
@@ -139,6 +153,7 @@ class AlienInvasion:
 
     def _check_bullet_alien_collisions(self):
         """Respond to bullet-alien collisions."""
+
         # Remove any bullets and aliens that have collided.
         collisions = pygame.sprite.groupcollide(
             self.bullets, self.aliens, True, True)
@@ -157,6 +172,10 @@ class AlienInvasion:
         Destroy the existing bullets, create a new fleet and start
         next level.
         """
+
+        # Play the new level sound.
+        self.sound.play_sound("new_level")
+
         self.bullets.empty()
         self._create_fleet()
         self.settings.increase_speed()
@@ -181,6 +200,9 @@ class AlienInvasion:
 
     def _ship_hit(self):
         """Respond to the ship being hit by an alien."""
+        
+        # Play the hit sound.
+        self.sound.play_sound("ship_hit")
 
         if self.stats.ships_left > 0:
             # Decrement the ships_left and update scoreboard.
@@ -198,6 +220,9 @@ class AlienInvasion:
             # Pause.
             sleep(0.5)
         else:
+            # Play the game over sound.
+            self.sound.play_sound("game_over")
+
             self.stats.game_active = False
             self.play_button.prep_msg('REPLAY')
             pygame.mouse.set_visible(True)
@@ -223,7 +248,7 @@ class AlienInvasion:
         # Determine the number of rows aliens that fit on the screen.
         ship_height = self.ship.rect.height
         available_space_y = (self.settings.screen_height -
-         (4*alien_height) - 2*ship_height)
+         (3*alien_height) - 2*ship_height)
         number_rows = available_space_y // (2*alien_height)
 
         # Create the full fleet of aliens.
@@ -237,7 +262,7 @@ class AlienInvasion:
         alien_width, alien_height = alien.rect.size
         alien.x = alien_width + 2*alien_width*alien_number
         alien.rect.x = alien.x
-        alien.rect.y = 3*alien.rect.height + 2*alien.rect.height*row_number
+        alien.rect.y = 2*alien.rect.height + 2*alien.rect.height*row_number
         self.aliens.add(alien)
 
     def _check_fleet_edges(self):
@@ -269,9 +294,3 @@ class AlienInvasion:
             self.play_button.draw_button()
 
         pygame.display.flip()
-
-
-if __name__ == '__main__':
-    # Make a game instance, and run the game.
-    ai = AlienInvasion()
-    ai.run_game()
