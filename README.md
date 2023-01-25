@@ -1,6 +1,6 @@
 <h1 align="center">Alien Invasion Game</h1>
 <p>
-  <img alt="Version" src="https://img.shields.io/badge/version-v0.2-blue.svg?cacheSeconds=2592000" />
+  <img alt="Version" src="https://img.shields.io/badge/version-v0.1-blue.svg?cacheSeconds=2592000" />
   <a href="https://github.com/okanbuyuktepe/Alien-Invasion" target="_blank">
     <img alt="Documentation" src="https://img.shields.io/badge/documentation-yes-brightgreen.svg" />
   </a>
@@ -91,6 +91,6 @@ Give a ⭐️ if this project helped you!
 ## 📝 License
 
 Copyright © 2020 **[okanbuyuktepe](https://github.com/okanbuyuktepe)**.<br />
-This project is **[MIT](https://github.com/okanbuyuktepe/Alien-Invasion/blob/master/LICENSE)** licensed.
+This project is **[MIT](https://github.com/okanbuyuktepe/Alien-Invasion/blob/main/LICENSE)** licensed.
 
 ---
