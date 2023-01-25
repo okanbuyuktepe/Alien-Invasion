@@ -4,7 +4,7 @@
   <a href="https://github.com/okanbuyuktepe/Alien-Invasion" target="_blank">
     <img alt="Documentation" src="https://img.shields.io/badge/documentation-yes-brightgreen.svg" />
   </a>
-  <a href="https://github.com/okanbuyuktepe/Alien-Invasion/blob/master/LICENSE" target="_blank">
+  <a href="https://github.com/okanbuyuktepe/Alien-Invasion/blob/master/LICENSE.txt" target="_blank">
     <img alt="License: MIT" src="https://img.shields.io/badge/License-MIT-yellow.svg" />
   </a>
   <a href="https://twitter.com/okanbuyuktepe" target="_blank">
@@ -90,7 +90,7 @@ Give a ⭐️ if this project helped you!
 
 ## 📝 License
 
-Copyright © 2020 **[okanbuyuktepe](https://github.com/okanbuyuktepe)**.<br />
+Copyright © 2023 **[okanbuyuktepe](https://github.com/okanbuyuktepe)**.<br />
 This project is **[MIT](https://github.com/okanbuyuktepe/Alien-Invasion/blob/main/LICENSE.txt)** licensed.
 
 ---
